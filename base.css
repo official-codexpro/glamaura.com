@@ -1,0 +1,98 @@
+/*HOME PAGE CODE START--------------------------*/
+/*NEVBAR CODE START*/
+
+  .slim-link {
+    position: relative;
+    padding: 2px 0;
+  }
+  .slim-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg,#ec4899,#f59e0b);
+    transition: width .3s ease;
+    border-radius: 2px;
+  }
+  .slim-link:hover::after {
+    width: 100%;
+  }
+  .slim-mobile:hover {
+    color: #e11d48;
+  }
+/*NEVBAR CODE ENDING*/
+
+
+/*FOOTER CODE STARTING*/
+
+.footer-reveal{
+  animation: footerIn 1.2s ease forwards;
+}
+@keyframes footerIn{
+  from{opacity:0; transform:translateY(24px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+/* shimmer line */
+.footer-shimmer{
+  background:linear-gradient(90deg,
+    transparent,
+    rgba(236,72,153,.45),
+    transparent);
+  animation: shimmer 6s linear infinite;
+}
+@keyframes shimmer{
+  from{background-position:0%}
+  to{background-position:200%}
+}
+
+/* dot animation */
+.footer-dot{
+  width:4px;
+  height:4px;
+  border-radius:9999px;
+  background:#ec4899;
+  opacity:.25;
+  animation: dotFade 1.8s infinite ease-in-out;
+}
+.footer-dot.delay-1{ animation-delay:.2s }
+.footer-dot.delay-2{ animation-delay:.4s }
+
+@keyframes dotFade{
+  0%,100%{opacity:.25}
+  50%{opacity:.85}
+}
+
+/* hover underline */
+.footer-link{
+  position:relative;
+  transition:color .25s ease;
+}
+.footer-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-3px;
+  width:0;
+  height:2px;
+  background:#ec4899;
+  transition:width .3s ease;
+}
+.footer-link:hover{
+  color:#ec4899;
+}
+.footer-link:hover::after{
+  width:100%;
+}
+
+/* service text hover */
+.footer-text{
+  transition:opacity .2s ease;
+}
+.footer-text:hover{
+  opacity:.7;
+}
+/*FOOTER CODE ENDING*/
+/*HOME PAGE CODE END--------------------------*/
