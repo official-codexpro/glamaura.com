@@ -38,7 +38,7 @@
         <li><a class="slim-link" href="index.html">Home</a></li>
         <li><a class="slim-link" href="services.html">Services</a></li>
         <li><a class="slim-link" href="about.html">About</a></li>
-        <li><a class="slim-link" href="parlour.html">Products</a></li>
+        <li><a class="slim-link" href="products.html">Products</a></li>
         <li><a class="slim-link" href="team.html">Team</a></li>
         <li><a class="slim-link" href="reviews.html">Reviews</a></li>
         <li><a class="slim-link" href="contact.html">Contact</a></li>
@@ -89,7 +89,7 @@
       <a class="slim-mobile" href="index.html">Home</a>
       <a class="slim-mobile" href="services.html">Services</a>
       <a class="slim-mobile" href="about.html">About</a>
-      <a class="slim-mobile" href="parlour.html">Products</a>
+      <a class="slim-mobile" href="products.html">Products</a>
       <a class="slim-mobile" href="team.html">Team</a>
       <a class="slim-mobile" href="reviews.html">Reviews</a>
       <a class="slim-mobile" href="contact.html">Contact</a>
@@ -152,6 +152,116 @@
 
 <!--HERO SECTION ENDING {AAK}-->
 
+
+<!--LIST FILTER SECTION STARTING {AAK}-->
+
+<section class="bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10">
+
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+
+      <!-- Left: Categories -->
+      <div class="flex gap-10 text-sm font-semibold tracking-wide uppercase">
+        <button onclick="setActive(this)" class="filter text-black border-b border-black pb-1">
+          All
+        </button>
+        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition">
+          Skincare
+        </button>
+        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition">
+          Haircare
+        </button>
+        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition">
+          Makeup
+        </button>
+        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition">
+          Tools
+        </button>
+      </div>
+
+      <!-- Right: Sort -->
+      <div class="text-sm font-semibold tracking-wide text-gray-500 uppercase">
+        Sort by —
+        <select class="bg-transparent focus:outline-none text-black ml-1">
+          <option>Featured</option>
+          <option>Newest</option>
+          <option>Price Low → High</option>
+          <option>Price High → Low</option>
+        </select>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function setActive(btn) {
+    document.querySelectorAll('.filter').forEach(b => {
+      b.classList.remove('text-black', 'border-b', 'border-black');
+      b.classList.add('text-gray-400');
+    });
+
+    btn.classList.add('text-black', 'border-b', 'border-black');
+    btn.classList.remove('text-gray-400');
+  }
+</script>
+
+<!--LIST FILTER SECTION ENDING {AAK}-->
+
+<!--PRODUCT CARD SECTION STARTING {AAK}-->
+
+<section class="bg-[#f5f1e8]">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12">
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+      <!-- CARD -->
+      <div class="group bg-white rounded-2xl overflow-hidden border border-black/5 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition duration-500">
+
+        <!-- Image -->
+        <a href="#" class="block overflow-hidden bg-gradient-to-br from-[#f5f1e8] to-[#e8e2d5]">
+          <img src="/media/products/Floral_Crush.jpg"
+               class="w-full h-[300px] object-cover transition duration-700 group-hover:scale-110" />
+        </a>
+
+        <!-- Content -->
+        <div class="p-6">
+
+          <p class="text-[11px] uppercase tracking-widest text-[#8b7355] font-semibold mb-1">
+            Perfume
+          </p>
+
+          <h3 class="text-xl font-semibold text-[#1a1a1a] leading-snug">
+            Floral Crush Perfume
+          </h3>
+
+          <p class="text-sm text-gray-500 mt-1">
+            Inspired by Gucci
+          </p>
+
+          <div class="mt-5 pt-4 border-t border-black/5 flex items-center justify-between">
+            <span class="text-2xl font-bold bg-gradient-to-r from-[#1a1a1a] to-[#8b7355] bg-clip-text text-transparent">
+              ₹999
+            </span>
+
+            <a href="#"
+               class="text-sm uppercase tracking-wider font-semibold text-[#8b7355] hover:text-black transition">
+              View →
+            </a>
+          </div>
+
+        </div>
+      </div>
+      <!-- END CARD -->
+
+      <!-- Repeat same card inside loop -->
+
+    </div>
+  </div>
+</section>
+
+<!--PRODUCT CARD SECTION ENDING {AAK}-->
 
 <!--CONTACT SECTION STARTING{AAK}-->
 
