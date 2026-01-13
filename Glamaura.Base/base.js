@@ -2,29 +2,26 @@
 
 //PAGE LORDER SCRIPT CODE START
 
-(function () {
+document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("preloader");
+  if (!loader) return;
 
-  // First time visit in this tab
+  // Agar first visit hai tabhi loader run kare
   if (!sessionStorage.getItem("glamaura-visited")) {
     sessionStorage.setItem("glamaura-visited", "true");
 
     window.addEventListener("load", () => {
       setTimeout(() => {
-        loader.style.transition = "all 1.4s cubic-bezier(.22,1,.36,1)";
+        loader.style.transition = "opacity 1.2s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1), filter 1.2s ease";
         loader.style.opacity = "0";
-        loader.style.transform = "scale(1.06)";
+        loader.style.transform = "scale(1.05)";
         loader.style.filter = "blur(6px)";
 
-        setTimeout(() => loader.remove(), 1400);
-      }, 6000);
+        setTimeout(() => loader.remove(), 1200);
+      }, 2500);
     });
-
-  } else {
-    // Already visited in this tab → don't show loader again
-    loader.remove();
   }
-})();
+});
 
 //PAGE LORDER SCRIPT CODE END
 

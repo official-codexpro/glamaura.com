@@ -1,6 +1,10 @@
 /*HOME PAGE CODE START-------------------------/home/codexpro/Documents/glamaura.com-main/index.html-*/
 
 /*PAGE LORDER STYLE CSS CODE START {AAK}*/
+.loader-skip #preloader {
+  display: none !important;
+}
+
 
 /* Fade mask for bottom-left image */
 .mask-gradient-bl {
