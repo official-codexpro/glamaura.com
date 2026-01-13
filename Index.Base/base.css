@@ -1,4 +1,156 @@
-/*HOME PAGE CODE START--------------------------*/
+/*HOME PAGE CODE START-------------------------/home/codexpro/Documents/glamaura.com-main/index.html-*/
+
+/*PAGE LORDER STYLE CSS CODE START {AAK}*/
+
+/* Fade mask for bottom-left image */
+.mask-gradient-bl {
+  -webkit-mask-image: linear-gradient(to top right, black 60%, transparent 100%);
+  mask-image: linear-gradient(to top right, black 60%, transparent 100%);
+}
+
+/* Brand entrance */
+#brand {
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  filter: blur(8px);
+  animation: brandIn 1.8s cubic-bezier(.22, 1, .36, 1) forwards;
+  animation-delay: .3s;
+}
+
+@keyframes brandIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Floating logo */
+.logo {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Letters */
+.letter {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: letterReveal .8s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+.letter:nth-child(1) {
+  animation-delay: .6s
+}
+
+.letter:nth-child(2) {
+  animation-delay: .75s
+}
+
+.letter:nth-child(3) {
+  animation-delay: .9s
+}
+
+.letter:nth-child(4) {
+  animation-delay: 1.05s
+}
+
+.letter:nth-child(5) {
+  animation-delay: 1.2s
+}
+
+.letter:nth-child(6) {
+  animation-delay: 1.35s
+}
+
+.letter:nth-child(7) {
+  animation-delay: 1.5s
+}
+
+.letter:nth-child(8) {
+  animation-delay: 1.65s
+}
+
+@keyframes letterReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smile animation */
+.smile {
+  opacity: 0;
+  transform: scale(.85);
+  animation: smileIn .8s ease forwards;
+  animation-delay: 2s;
+}
+
+@keyframes smileIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Line */
+#line {
+  animation: lineGrow 1.2s cubic-bezier(.22, 1, .36, 1) forwards;
+  animation-delay: 2.2s;
+}
+
+@keyframes lineGrow {
+  to {
+    width: 200px;
+  }
+}
+
+/* Orbs motion */
+.animate-orb1 {
+  animation: orbMove1 10s ease-in-out infinite;
+}
+
+.animate-orb2 {
+  animation: orbMove2 12s ease-in-out infinite;
+}
+
+@keyframes orbMove1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(40px, 30px);
+  }
+}
+
+@keyframes orbMove2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-40px, -30px);
+  }
+}
+
+/*PAGE LORDER STYLE CSS CODE  END{AAK}*/
+
+
 /*NEVBAR CODE START*/
 
 .slim-link {
@@ -131,4 +283,37 @@
 }
 
 /*FOOTER CODE ENDING*/
-/*HOME PAGE CODE END--------------------------*/
+/*HOME PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/index.html---*/
+
+
+/*SERVICE PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/services.html---*/
+/*SERVICE PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/services.html---*/
+
+
+
+
+
+/*ABOUT PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/about.html---*/
+/*ABOUT PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/about.html---*/
+
+
+
+
+
+/*STORE PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/product.html---*/
+/*STORE PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/product.html---*/
+
+
+
+
+
+
+/*TEAM PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/team.html---*/
+/*TEAM PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/team.html---*/
+
+
+
+
+
+/*REVIEWS PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/reviews.html---*/
+/*REVIEWS PAGE CODE END-----------------------/home/codexpro/Documents/glamaura.com-main/reviews.html---*/

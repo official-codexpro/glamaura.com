@@ -1,5 +1,23 @@
 //HOME PAGE CODE START------------------------/home/codexpro/Documents/glamaura.com-main/index.html--
 
+//PAGE LORDER SCRIPT CODE START
+
+window.addEventListener("load", () => {
+  const loader = document.getElementById("preloader");
+
+  setTimeout(() => {
+    loader.style.transition = "all 1.4s cubic-bezier(.22,1,.36,1)";
+    loader.style.opacity = "0";
+    loader.style.transform = "scale(1.06)";
+    loader.style.filter = "blur(6px)";
+
+    setTimeout(() => loader.remove(), 1400);
+  }, 6000); // 6s luxury intro
+});
+
+//PAGE LORDER SCRIPT CODE END
+
+
 //NEVBAR CODE START
 
 const btn = document.getElementById('menuBtn');
@@ -133,3 +151,46 @@ window.addEventListener("resize", () => {
 //PRODUCT GRID- SECTION CODE END--------------------------
 
 //$-STORE PAGE CODE END----------------------/home/codexpro/Documents/glamaura.com-main/products.html----
+
+
+
+
+
+//$-ABOUT PAGE CODE START---------------------/home/codexpro/Documents/glamaura.com-main/about.html-----
+
+//$-ABOUT PAGE CODE END----------------------/home/codexpro/Documents/glamaura.com-main/about.html----
+
+
+
+
+
+//$-SERVICE PAGE CODE START----------------------/home/codexpro/Documents/glamaura.com-main/services.html----
+
+//$-SERVICE PAGE CODE END----------------------/home/codexpro/Documents/glamaura.com-main/services.html----
+
+
+
+
+
+
+//$-REVIEWS PAGE CODE START----------------------/home/codexpro/Documents/glamaura.com-main/reviews.html----
+
+//$-REVIEWS PAGE CODE END----------------------/home/codexpro/Documents/glamaura.com-main/reviews.html----
+
+
+
+
+
+
+//$-TEAM PAGE CODE START----------------------/home/codexpro/Documents/glamaura.com-main/team.html----
+
+//$-TEAM PAGE CODE END----------------------/home/codexpro/Documents/glamaura.com-main/team.html----
+
+
+
+
+
+
+//$-CONTACT PAGE CODE START----------------------/home/codexpro/Documents/glamaura.com-main/contact.html----
+
+//$-CONTACT PAGE CODE END----------------------/home/codexpro/Documents/glamaura.com-main/contact.html----
