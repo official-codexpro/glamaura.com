@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loader.style.filter = "blur(6px)";
 
         setTimeout(() => loader.remove(), 1200);
-      }, 2500);
+      }, 5500);
     });
   }
 });
