@@ -1,83 +1,135 @@
-//HOME PAGE CODE START--------------------------
+//HOME PAGE CODE START------------------------/home/codexpro/Documents/glamaura.com-main/index.html--
 
 //NEVBAR CODE START
 
-  const btn = document.getElementById('menuBtn');
-  const menu = document.getElementById('mobileMenu');
-  btn.onclick = () => menu.classList.toggle('hidden');
+const btn = document.getElementById('menuBtn');
+const menu = document.getElementById('mobileMenu');
+btn.onclick = () => menu.classList.toggle('hidden');
 
 //NEVBAR CODE ENDING
 
 
 //TEAM-MEMBER SECTION SCRIPT START
 
-  const teamSlider = document.getElementById("teamSlider");
+const teamSlider = document.getElementById("teamSlider");
 
-  function smoothScroll(element, distance, duration = 600) {
-    const start = element.scrollLeft;
-    const startTime = performance.now();
+function smoothScroll(element, distance, duration = 600) {
+  const start = element.scrollLeft;
+  const startTime = performance.now();
 
-    function easeInOut(t) {
-      return t < 0.5
-        ? 2 * t * t
-        : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  function easeInOut(t) {
+    return t < 0.5
+      ? 2 * t * t
+      : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  }
+
+  function animate(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = easeInOut(progress);
+
+    element.scrollLeft = start + distance * ease;
+
+    if (progress < 1) {
+      requestAnimationFrame(animate);
     }
-
-    function animate(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = easeInOut(progress);
-
-      element.scrollLeft = start + distance * ease;
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    }
-
-    requestAnimationFrame(animate);
   }
 
-  function teamNext() {
-    smoothScroll(teamSlider, 240, 700);
-  }
+  requestAnimationFrame(animate);
+}
 
-  function teamPrev() {
-    smoothScroll(teamSlider, -240, 700);
-  }
+function teamNext() {
+  smoothScroll(teamSlider, 240, 700);
+}
+
+function teamPrev() {
+  smoothScroll(teamSlider, -240, 700);
+}
 //TEAM-MEMBER SECTION SCRIPT END
 
 //REVIEW SECTION SCRIPT START
 
-  const reviewSlider = document.getElementById("reviewSlider");
+const reviewSlider = document.getElementById("reviewSlider");
 
-  function smoothScroll(el, distance, duration = 700) {
-    const start = el.scrollLeft;
-    const startTime = performance.now();
+function smoothScroll(el, distance, duration = 700) {
+  const start = el.scrollLeft;
+  const startTime = performance.now();
 
-    function ease(t) {
-      return t < 0.5
-        ? 2 * t * t
-        : 1 - Math.pow(-2 * t + 2, 2) / 2;
-    }
-
-    function animate(time) {
-      const elapsed = time - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      el.scrollLeft = start + distance * ease(progress);
-      if (progress < 1) requestAnimationFrame(animate);
-    }
-
-    requestAnimationFrame(animate);
+  function ease(t) {
+    return t < 0.5
+      ? 2 * t * t
+      : 1 - Math.pow(-2 * t + 2, 2) / 2;
   }
 
-  function reviewNext() {
-    smoothScroll(reviewSlider, 340);
+  function animate(time) {
+    const elapsed = time - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    el.scrollLeft = start + distance * ease(progress);
+    if (progress < 1) requestAnimationFrame(animate);
   }
 
-  function reviewPrev() {
-    smoothScroll(reviewSlider, -340);
-  }
+  requestAnimationFrame(animate);
+}
+
+function reviewNext() {
+  smoothScroll(reviewSlider, 340);
+}
+
+function reviewPrev() {
+  smoothScroll(reviewSlider, -340);
+}
 //REVIEWS SECTION SCRIPT END
 
-//HOME PAGE CODE START--------------------------
+//HOME PAGE CODE END------------------------/home/codexpro/Documents/glamaura.com-main/index.html--
+
+
+
+
+
+//$-STORE PAGE CODE START-----------------------/home/codexpro/Documents/glamaura.com-main/products.html---
+
+//PRODUCT GRID SECTION- CODE START--------------------------
+const grid = document.getElementById("productsGrid");
+const cards = Array.from(document.querySelectorAll(".product-card"));
+const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+let visible = 0;
+const rowsToShow = 3;
+
+function getColumns() {
+  return window.getComputedStyle(grid).gridTemplateColumns.split(" ").length;
+}
+
+function showNextRows() {
+  const cols = getColumns();
+  const perLoad = cols * rowsToShow;
+
+  for (let i = visible; i < visible + perLoad; i++) {
+    if (cards[i]) cards[i].classList.remove("hidden");
+  }
+
+  visible += perLoad;
+
+  if (visible >= cards.length) {
+    loadMoreBtn.classList.add("hidden");
+  }
+}
+
+// Initially hide all
+cards.forEach(card => card.classList.add("hidden"));
+
+// First load (3 rows)
+showNextRows();
+
+// Button click
+loadMoreBtn.addEventListener("click", showNextRows);
+
+// On resize recalc properly
+window.addEventListener("resize", () => {
+  cards.forEach(card => card.classList.add("hidden"));
+  visible = 0;
+  showNextRows();
+});
+//PRODUCT GRID- SECTION CODE END--------------------------
+
+//$-STORE PAGE CODE END----------------------/home/codexpro/Documents/glamaura.com-main/products.html----
