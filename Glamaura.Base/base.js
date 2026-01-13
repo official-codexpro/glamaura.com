@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loader.style.filter = "blur(6px)";
 
         setTimeout(() => loader.remove(), 1200);
-      }, 5500); // 👈 loader timing (change if needed)
+      }, 4000); // 👈 loader timing (change if needed)
     });
 
   } else {
