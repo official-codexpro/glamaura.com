@@ -6,20 +6,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("preloader");
   if (!loader) return;
 
-  // Agar first visit hai tabhi loader run kare
-  if (!sessionStorage.getItem("glamaura-visited")) {
+  const nav = performance.getEntriesByType("navigation")[0];
+  const isReload = nav && nav.type === "reload";
+
+  if (!sessionStorage.getItem("glamaura-visited") || isReload) {
     sessionStorage.setItem("glamaura-visited", "true");
 
     window.addEventListener("load", () => {
       setTimeout(() => {
-        loader.style.transition = "opacity 1.2s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1), filter 1.2s ease";
+        loader.style.transition =
+          "opacity 1.2s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1), filter 1.2s ease";
+
         loader.style.opacity = "0";
         loader.style.transform = "scale(1.05)";
         loader.style.filter = "blur(6px)";
 
         setTimeout(() => loader.remove(), 1200);
-      }, 5500);
+      }, 5500); // 👈 loader timing (change if needed)
     });
+
+  } else {
+    loader.style.display = "none";
   }
 });
 
