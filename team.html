@@ -9,15 +9,15 @@
   <script src="/Glamaura.Base/base.js" defer></script>
   <link href="/Glamaura.Base/base.css" rel="stylesheet" />
   <script>
-(function () {
-  const nav = performance.getEntriesByType("navigation")[0];
-  const isReload = nav && nav.type === "reload";
+    (function () {
+      const nav = performance.getEntriesByType("navigation")[0];
+      const isReload = nav && nav.type === "reload";
 
-  if (sessionStorage.getItem("glamaura-visited") && !isReload) {
-    document.documentElement.classList.add("loader-skip");
-  }
-})();
-</script>
+      if (sessionStorage.getItem("glamaura-visited") && !isReload) {
+        document.documentElement.classList.add("loader-skip");
+      }
+    })();
+  </script>
 
 
 </head>
@@ -230,6 +230,69 @@
 
 
 
+  <!--FOUNDER SECTION STARTING {AAK}-->
+
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 py-28">
+
+      <div class="grid lg:grid-cols-12 gap-14 items-center">
+
+        <!-- LEFT IMAGE -->
+        <div class="lg:col-span-5 relative group">
+          <div
+            class="absolute -inset-4 bg-pink-100/40 blur-3xl opacity-0 group-hover:opacity-100 transition duration-700">
+          </div>
+
+          <div class="relative overflow-hidden rounded-[2.5rem]">
+            <img src="https://i.pinimg.com/736x/7c/6d/9d/7c6d9d7b112e9795c2bb980283a71399.jpg" class="w-full object-cover 
+       h-[220px] sm:h-[360px] lg:h-[480px]
+       transition duration-700 group-hover:scale-[1.03]" alt="Founder" />
+          </div>
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div class="lg:col-span-7">
+
+          <span class="text-[11px] tracking-[0.4em] uppercase font-semibold text-pink-600">
+            The Woman Behind GlamAura
+          </span>
+
+          <h2 class="mt-6 text-4xl sm:text-5xl font-bold text-black leading-tight">
+            Where beauty meets
+            <span class="text-pink-600">intentional artistry</span>.
+          </h2>
+
+          <div class="mt-8 space-y-6 text-[16px] text-gray-500 leading-relaxed max-w-xl">
+            <p>
+              GlamAura was not built to follow trends —
+              it was created to redefine how luxury beauty feels.
+            </p>
+
+            <p>
+              Every detail you experience here is designed with calmness, precision, and emotional care — because real
+              luxury is never loud.
+            </p>
+          </div>
+
+          <!-- Signature Block -->
+          <div class="mt-10 inline-block">
+            <div class="border-l-2 border-pink-300 pl-6">
+              <p class="text-2xl font-[cursive] text-black tracking-wide">
+                Antima Singh
+              </p>
+              <p class="text-[13px] uppercase tracking-widest text-gray-400 mt-1">
+                Founder & Creative Director
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!--FOUNDER SECTION ENDING {AAK}-->
 
 
 
