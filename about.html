@@ -12,8 +12,78 @@
 </head>
 
 <body style="margin: 0; padding: 0;">
+
+   <!--ANIMATION LORDER SECTION STARTING {AAK}-->
+
+  <div id="preloader" class="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden
+    bg-gradient-to-br from-[#fff7fb] via-white to-[#fff0f5]">
+  
+    <!-- Decorative Bottom Left Image -->
+    <img src="https://i.pinimg.com/1200x/00/e3/ef/00e3ef3b309ca5bd6280aa9f3eeb3e97.jpg" class="absolute bottom-0 left-0 w-[220px] sm:w-[280px] md:w-[380px]
+                  opacity-60 mix-blend-multiply pointer-events-none select-none
+                  mask-gradient-bl" alt="decor" />
+  
+    <!-- Background Orbs -->
+    <div class="absolute -top-40 -left-40 w-[320px] md:w-[420px] h-[320px] md:h-[420px]
+      bg-pink-300/30 rounded-full blur-[100px] animate-orb1"></div>
+  
+    <div class="absolute top-1/2 -right-40 w-[320px] md:w-[420px] h-[320px] md:h-[420px]
+      bg-rose-300/30 rounded-full blur-[100px] animate-orb2"></div>
+  
+    <!-- Brand -->
+    <div id="brand" class="relative text-center px-6">
+  
+      <!-- Logo -->
+      <div class="flex justify-center mb-6 md:mb-8">
+        <svg width="64" height="64" class="md:w-[82px] md:h-[82px] logo" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ec4899" />
+              <stop offset="100%" stop-color="#f97316" />
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="48" fill="url(#grad)" />
+          <text x="50%" y="58%" text-anchor="middle" fill="white" font-size="44" font-weight="700"
+            font-family="Poppins, Arial">
+            G
+          </text>
+        </svg>
+      </div>
+  
+      <!-- Brand + Smile -->
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+  
+        <h1
+          class="flex justify-center gap-1 sm:gap-2 text-2xl sm:text-3xl md:text-5xl font-semibold tracking-[0.35em] text-gray-900">
+          <span class="letter">G</span>
+          <span class="letter">L</span>
+          <span class="letter">A</span>
+          <span class="letter">M</span>
+          <span class="letter">A</span>
+          <span class="letter">U</span>
+          <span class="letter">R</span>
+          <span class="letter">A</span>
+        </h1>
+  
+        <!-- Premium Smile -->
+        <svg class="smile w-12 h-12 sm:w-14 sm:h-14 md:w-[90px] md:h-[90px]" viewBox="0 0 24 24" fill="none">
+          <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="url(#grad)" stroke-width="2.4" stroke-linecap="round" />
+          <circle cx="9" cy="10" r="1.3" fill="#ec4899" />
+          <circle cx="15" cy="10" r="1.3" fill="#f97316" />
+        </svg>
+      </div>
+  
+      <!-- Gradient Line -->
+      <div id="line"
+        class="h-[2px] w-0 bg-gradient-to-r from-pink-500 via-orange-400 to-pink-500 mx-auto mt-6 md:mt-8 rounded-full">
+      </div>
+    </div>
+  </div>
+
+  <!--ANIMATION LORDER SECTION STARTING {AAK}-->
+
+
   <!--NEVBAR SECTION STARTING {AAK}-->
-  <!-- FULL WIDTH SLIM PREMIUM NAVBAR -->
   <header class="fixed top-0 z-50 w-full
                bg-white/75 backdrop-blur-lg
                border-b border-pink-100">

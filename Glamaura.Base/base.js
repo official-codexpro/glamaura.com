@@ -2,18 +2,29 @@
 
 //PAGE LORDER SCRIPT CODE START
 
-window.addEventListener("load", () => {
+(function () {
   const loader = document.getElementById("preloader");
 
-  setTimeout(() => {
-    loader.style.transition = "all 1.4s cubic-bezier(.22,1,.36,1)";
-    loader.style.opacity = "0";
-    loader.style.transform = "scale(1.06)";
-    loader.style.filter = "blur(6px)";
+  // First time visit in this tab
+  if (!sessionStorage.getItem("glamaura-visited")) {
+    sessionStorage.setItem("glamaura-visited", "true");
 
-    setTimeout(() => loader.remove(), 1400);
-  }, 6000); // 6s luxury intro
-});
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        loader.style.transition = "all 1.4s cubic-bezier(.22,1,.36,1)";
+        loader.style.opacity = "0";
+        loader.style.transform = "scale(1.06)";
+        loader.style.filter = "blur(6px)";
+
+        setTimeout(() => loader.remove(), 1400);
+      }, 6000);
+    });
+
+  } else {
+    // Already visited in this tab → don't show loader again
+    loader.remove();
+  }
+})();
 
 //PAGE LORDER SCRIPT CODE END
 
