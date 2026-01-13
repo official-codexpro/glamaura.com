@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loader.style.transform = "scale(1.05)";
         loader.style.filter = "blur(6px)";
 
-        setTimeout(() => loader.remove(), 1200);
+        setTimeout(() => loader.remove(), 1000);
       }, 4000); // 👈 loader timing (change if needed)
     });
 
