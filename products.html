@@ -154,48 +154,72 @@
 
 
 <!--LIST FILTER SECTION STARTING {AAK}-->
+<section class="bg-white border-b border-gray-100 sticky top-0 z-40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-3">
 
-<section class="bg-white">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
 
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <!-- DESKTOP FILTER (Premium but same style) -->
+      <div class="hidden md:flex gap-8 text-[13px] font-medium tracking-wide">
 
-      <!-- Left: Categories -->
-      <div class="flex gap-10 text-sm font-semibold tracking-wide uppercase">
-        <button onclick="setActive(this)" class="filter text-black border-b border-black pb-1">
+        <button onclick="setActive(this)"
+          class="filter text-black border-b border-black pb-1 transition-all duration-300">
           All
         </button>
-        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition">
+
+        <button onclick="setActive(this)"
+          class="filter text-gray-400 hover:text-black transition-all duration-300">
           Skincare
         </button>
-        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition">
-          Haircare
-        </button>
-        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition">
-          Makeup
-        </button>
-        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition">
-          Tools
-        </button>
+
+        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition-all duration-300">Haircare</button>
+        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition-all duration-300">Makeup</button>
+        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition-all duration-300">Tools</button>
+        <button onclick="setActive(this)" class="filter text-gray-400 hover:text-black transition-all duration-300">Lipstick</button>
+
       </div>
 
-      <!-- Right: Sort -->
-      <div class="text-sm font-semibold tracking-wide text-gray-500 uppercase">
-        Sort by —
-        <select class="bg-transparent focus:outline-none text-black ml-1">
-          <option>Featured</option>
-          <option>Newest</option>
-          <option>Price Low → High</option>
-          <option>Price High → Low</option>
+      <!-- MOBILE DROPDOWN -->
+      <div class="md:hidden relative">
+        <div class="relative">
+          <select onchange="mobileFilter(this)"
+            class="w-full bg-transparent text-[15px] font-medium text-black
+                   appearance-none focus:outline-none py-2 pr-8">
+            <option>All</option>
+            <option>Skincare</option>
+            <option>Haircare</option>
+            <option>Makeup</option>
+            <option>Tools</option>
+            <option>Lipstick</option>
+          </select>
+
+          <span class="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 text-xs">▾</span>
+        </div>
+
+        <div class="h-[1px] bg-gradient-to-r from-transparent via-black/30 to-transparent mt-1"></div>
+      </div>
+
+      <!-- SORT (NOW WORKING) -->
+      <div class="flex items-center gap-2 text-[12px] font-medium text-gray-500">
+        Sort
+        <select onchange="sortProducts(this.value)"
+          class="bg-transparent text-black text-[13px]
+                 border-b border-black/10 focus:border-black
+                 focus:outline-none transition-all">
+          <option value="featured">Featured</option>
+          <option value="newest">Newest</option>
+          <option value="low">Price Low → High</option>
+          <option value="high">Price High → Low</option>
         </select>
       </div>
 
     </div>
-
   </div>
 </section>
 
 <script>
+  let currentCategory = "all";
+
   function setActive(btn) {
     document.querySelectorAll('.filter').forEach(b => {
       b.classList.remove('text-black', 'border-b', 'border-black');
@@ -204,6 +228,40 @@
 
     btn.classList.add('text-black', 'border-b', 'border-black');
     btn.classList.remove('text-gray-400');
+
+    currentCategory = btn.innerText.toLowerCase();
+    applyFilter();
+  }
+
+  function mobileFilter(select) {
+    currentCategory = select.value.toLowerCase();
+    applyFilter();
+  }
+
+  function applyFilter() {
+    document.querySelectorAll('.product-card').forEach(card => {
+      if (currentCategory === "all") {
+        card.classList.remove("hidden");
+      } else {
+        card.dataset.category === currentCategory
+          ? card.classList.remove("hidden")
+          : card.classList.add("hidden");
+      }
+    });
+  }
+
+  function sortProducts(type) {
+    const container = document.querySelector('.products-grid');
+    const cards = Array.from(container.children);
+
+    cards.sort((a, b) => {
+      if (type === "low") return a.dataset.price - b.dataset.price;
+      if (type === "high") return b.dataset.price - a.dataset.price;
+      if (type === "newest") return new Date(b.dataset.date) - new Date(a.dataset.date);
+      if (type === "featured") return (b.dataset.featured === "true") - (a.dataset.featured === "true");
+    });
+
+    cards.forEach(card => container.appendChild(card));
   }
 </script>
 
@@ -211,51 +269,601 @@
 
 <!--PRODUCT CARD SECTION STARTING {AAK}-->
 
-<section class="bg-[#f5f1e8]">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12">
+<section class="bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
 
-      <!-- CARD -->
-      <div class="group bg-white rounded-2xl overflow-hidden border border-black/5 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition duration-500">
+      <!-- CARD 1 -->
+      <div data-category="makeup" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
 
-        <!-- Image -->
-        <a href="#" class="block overflow-hidden bg-gradient-to-br from-[#f5f1e8] to-[#e8e2d5]">
-          <img src="/media/products/Floral_Crush.jpg"
-               class="w-full h-[300px] object-cover transition duration-700 group-hover:scale-110" />
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/736x/fb/a4/93/fba49369f60523073c51814e346b2c46.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/736x/fb/a4/93/fba49369f60523073c51814e346b2c46.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
         </a>
 
-        <!-- Content -->
-        <div class="p-6">
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
 
-          <p class="text-[11px] uppercase tracking-widest text-[#8b7355] font-semibold mb-1">
-            Perfume
-          </p>
-
-          <h3 class="text-xl font-semibold text-[#1a1a1a] leading-snug">
-            Floral Crush Perfume
-          </h3>
-
-          <p class="text-sm text-gray-500 mt-1">
-            Inspired by Gucci
-          </p>
-
-          <div class="mt-5 pt-4 border-t border-black/5 flex items-center justify-between">
-            <span class="text-2xl font-bold bg-gradient-to-r from-[#1a1a1a] to-[#8b7355] bg-clip-text text-transparent">
-              ₹999
-            </span>
-
-            <a href="#"
-               class="text-sm uppercase tracking-wider font-semibold text-[#8b7355] hover:text-black transition">
-              View →
-            </a>
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">Makeup</p>
+          <h3 class="text-[15px] font-semibold text-black">Make Over</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹799.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
           </div>
-
         </div>
       </div>
-      <!-- END CARD -->
 
-      <!-- Repeat same card inside loop -->
+       <!-- CARD 2 -->
+      <div data-category="makeup" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/3a/ea/79/3aea79e8862424731bc5306ca60b340b.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/3a/ea/79/3aea79e8862424731bc5306ca60b340b.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">Makeup</p>
+          <h3 class="text-[15px] font-semibold text-black">Moist Mochi</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹999.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+       <!-- CARD 3 -->
+      <div data-category="makeup" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/736x/70/16/1b/70161b42431535d996e8281e53cb6b5b.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/736x/70/16/1b/70161b42431535d996e8281e53cb6b5b.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">Makeup</p>
+          <h3 class="text-[15px] font-semibold text-black">Buttermelt Blush</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹1799.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div data-category="lipstick" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/bc/18/c1/bc18c1fa00a0f1fb91565b40cc3b9ba9.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/bc/18/c1/bc18c1fa00a0f1fb91565b40cc3b9ba9.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">Lipstick</p>
+          <h3 class="text-[15px] font-semibold text-black">NIVEA </h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹499.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div data-category="makeup" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/2b/f6/80/2bf6806b38ed661c30536c9ff6bb9f89.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/2b/f6/80/2bf6806b38ed661c30536c9ff6bb9f89.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">makeup</p>
+          <h3 class="text-[15px] font-semibold text-black">Sheglam Blush</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹899.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div data-category="makeup" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/736x/c8/58/4e/c8584e29c8c08e95e78283b29b760dca.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/736x/c8/58/4e/c8584e29c8c08e95e78283b29b760dca.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">makeup</p>
+          <h3 class="text-[15px] font-semibold text-black">Dr Pink Blush</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹1999.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div data-category="lipstick" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/736x/1f/4c/72/1f4c72e851dd787a4603eaa962dc13d5.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/736x/1f/4c/72/1f4c72e851dd787a4603eaa962dc13d5.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">lipstick</p>
+          <h3 class="text-[15px] font-semibold text-black">Swiss Beauty Shine</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹599.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+       <!-- CARD 7 -->
+      <div data-category="lipstick" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/736x/19/5a/a1/195aa1f7a5decba614cd85d363722d9c.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/736x/19/5a/a1/195aa1f7a5decba614cd85d363722d9c.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">lipstick</p>
+          <h3 class="text-[15px] font-semibold text-black">Etude Dear Darling</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹2799.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+       <!-- CARD 8 -->
+      <div data-category="lipstick" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/01/d9/a3/01d9a31210ce048c65b72b127bcb1694.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/01/d9/a3/01d9a31210ce048c65b72b127bcb1694.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">lipstick</p>
+          <h3 class="text-[15px] font-semibold text-black"> I Love Extreme</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹1299.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 9 -->
+      <div data-category="makeup" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/92/98/59/92985906c17a063a1070cc68ed5f8119.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/92/98/59/92985906c17a063a1070cc68ed5f8119.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">makeup</p>
+          <h3 class="text-[15px] font-semibold text-black">Terry Barber Eye See</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹1799.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 10 -->
+      <div data-category="tools" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/736x/1a/87/2f/1a872f2484f93fc9cceb857870917de6.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/736x/1a/87/2f/1a872f2484f93fc9cceb857870917de6.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">tools</p>
+          <h3 class="text-[15px] font-semibold text-black">Pincel Brush</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹399.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 11 -->
+      <div data-category="tools" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/2a/08/7b/2a087b7c0265067a48e8aa89225ee4ff.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/2a/08/7b/2a087b7c0265067a48e8aa89225ee4ff.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">tools</p>
+          <h3 class="text-[15px] font-semibold text-black">Makeup Brush Set</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹899.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 12 -->
+      <div data-category="haircare" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/73/2e/fc/732efc91008edfe2f88b377c5a707756.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/73/2e/fc/732efc91008edfe2f88b377c5a707756.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">Haircare</p>
+          <h3 class="text-[15px] font-semibold text-black">Kundal Hair Kit</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹2399.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+       <!-- CARD 13 -->
+      <div data-category="haircare" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/736x/66/b3/c6/66b3c6c88c83a6b16678b6ae7107255a.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/736x/66/b3/c6/66b3c6c88c83a6b16678b6ae7107255a.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">haircare</p>
+          <h3 class="text-[15px] font-semibold text-black">Sexy Hair</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹1399.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+       <!-- CARD 14 -->
+      <div data-category="haircare" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/a6/e4/cc/a6e4cc0ce7d562d21c94e130ec801e0c.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/a6/e4/cc/a6e4cc0ce7d562d21c94e130ec801e0c.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">haircare</p>
+          <h3 class="text-[15px] font-semibold text-black">Hair Dryer</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹999.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 15 -->
+      <div data-category="skincare" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/2f/91/07/2f9107f11882d60f1379c21f3f02ecfc.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/2f/91/07/2f9107f11882d60f1379c21f3f02ecfc.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <h3 class="text-[15px] font-semibold text-black">CeraVe Facial Cleanser</h3>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">Skincare</p>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹799.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 16 -->
+      <div data-category="skincare" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/ef/51/a9/ef51a94e0248f06ba8e7713e655e4027.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/ef/51/a9/ef51a94e0248f06ba8e7713e655e4027.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">Skincare</p>
+          <h3 class="text-[15px] font-semibold text-black">Medicube Serum</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">₹2599.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 17 -->
+      <div data-category="skincare" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/a6/cb/1d/a6cb1dba65b19c9ca8d5e4595ca4e580.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/a6/cb/1d/a6cb1dba65b19c9ca8d5e4595ca4e580.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">Skincare</p>
+          <h3 class="text-[15px] font-semibold text-black">Skintific SymWhite</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">1499.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 17 -->
+      <div data-category="skincare" class="product-card group bg-white rounded-2xl overflow-hidden border border-pink-50
+          shadow-[0_6px_18px_rgba(0,0,0,0.035)]
+          transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(236,72,153,0.12)]">
+
+        <a href="#" class="relative block h-[210px] bg-[#fff7fb] overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/e4/e8/b6/e4e8b617859fabe5c7bf2c210160d2d4.jpg"
+            class="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:opacity-0 group-hover:scale-110" />
+        
+          <img src="https://i.pinimg.com/1200x/e4/e8/b6/e4e8b617859fabe5c7bf2c210160d2d4.jpg"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
+        </a>
+
+        <div class="relative">
+          <div class="h-px bg-pink-100"></div>
+          <div class="absolute inset-0 blur-sm bg-pink-200/40"></div>
+        </div>
+
+        <div class="px-4 pb-4">
+          <div class="h-4"></div>
+          <p class="text-[10px] uppercase tracking-widest text-pink-600 font-semibold mb-1">Skincare</p>
+          <h3 class="text-[15px] font-semibold text-black">Skintific Sunscreen</h3>
+          <p class="text-[12px] text-gray-500">Premium care</p>
+          <div class="mt-3 mb-2 h-px bg-pink-50"></div>
+          <div class="flex justify-between items-center">
+            <span class="text-[17px] font-bold bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">1199.00</span>
+            <a href="#" class="px-3 py-1.5 rounded-full bg-pink-600 text-white text-[10px] font-semibold tracking-widest">VIEW</a>
+          </div>
+        </div>
+      </div>
+
+
 
     </div>
   </div>
