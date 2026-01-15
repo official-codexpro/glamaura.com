@@ -6,21 +6,180 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="/Glamaura.Base/base.js" defer></script>
     <link href="/Glamaura.Base/base.css" rel="stylesheet" />
-    <script>
-        (function () {
-            const nav = performance.getEntriesByType("navigation")[0];
-            const isReload = nav && nav.type === "reload";
 
-            if (sessionStorage.getItem("glamaura-visited") && !isReload) {
-                document.documentElement.classList.add("loader-skip");
-            }
-        })();
-    </script>
 </head>
 
 <body>
+
+
+    <!--404 MAIN SECTION START HERE {AAK}-->
+    <!--ANIMATION LORDER SECTION STARTING {AAK}-->
+    <div id="preloader"
+        class="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#fff7fb] via-white to-[#fff0f5]">
+
+        <!-- Decorative Bottom Left Image -->
+        <img src="/GlamIMG/ANIMATIONS/animation.jpg"
+            class="absolute bottom-0 left-0 w-[220px] sm:w-[280px] md:w-[380px] opacity-60 mix-blend-multiply pointer-events-none select-none mask-gradient-bl"
+            alt="decor" />
+
+        <!-- Background Orbs -->
+        <div
+            class="absolute -top-40 -left-40 w-[320px] md:w-[420px] h-[320px] md:h-[420px] bg-pink-300/30 rounded-full blur-[100px] animate-orb1">
+        </div>
+
+        <div class="absolute top-1/2 -right-40 w-[320px] md:w-[420px] h-[320px] md:h-[420px]
+        bg-rose-300/30 rounded-full blur-[100px] animate-orb2"></div>
+
+        <!--NEVBAR START HERE-->
+        <header class="fixed top-0 z-50 w-full
+               bg-white/75 backdrop-blur-lg
+               border-b border-pink-100">
+
+            <nav class="max-w-7xl mx-auto px-5 lg:px-8">
+                <div class="flex h-14 items-center justify-between">
+
+                    <!-- Logo -->
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full
+                    bg-gradient-to-br from-pink-500 via-rose-500 to-amber-400
+                    flex items-center justify-center
+                    text-white text-sm font-bold">
+                            G
+                        </div>
+                        <span class="text-sm font-extrabold tracking-wide text-gray-800">
+                            GlamAura
+                        </span>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <ul class="hidden md:flex items-center gap-7 text-xs font-medium tracking-wide text-gray-700">
+                        <li><a class="slim-link" href="/index.html">Home</a></li>
+                        <li><a class="slim-link" href="/services.html">Services</a></li>
+                        <li><a class="slim-link" href="/about.html">About</a></li>
+                        <li><a class="slim-link" href="/products.html">Products</a></li>
+                        <li><a class="slim-link" href="/team.html">Team</a></li>
+                        <li><a class="slim-link" href="/reviews.html">Reviews</a></li>
+                        <li><a class="slim-link" href="/contact.html">Contact</a></li>
+                    </ul>
+
+                    <!-- CTA Buttons -->
+                    <div class="hidden md:flex items-center gap-3">
+
+                        <!-- Map -->
+                        <a href="https://www.google.com/maps" target="_blank" class="px-4 py-1.5 rounded-full
+                  border border-pink-300
+                  text-xs font-semibold text-pink-600
+                  hover:bg-pink-50 transition">
+                            📍 Map
+                        </a>
+
+                        <!-- Book Now -->
+                        <a href="#contact" class="px-4 py-1.5 rounded-full
+                  bg-gradient-to-r from-rose-500 to-pink-600
+                  text-white text-xs font-semibold
+                  shadow-sm shadow-pink-300/40
+                  hover:shadow-pink-400/60 transition">
+                            Book Now
+                        </a>
+
+                    </div>
+
+                    <!-- Mobile Button -->
+                    <button id="menuBtn" class="md:hidden text-xl text-gray-700">
+                        ☰
+                    </button>
+
+                </div>
+            </nav>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden
+              bg-white/95 backdrop-blur-lg
+              border-t border-pink-100">
+                <div class="max-w-7xl mx-auto px-6 py-5
+                flex flex-col gap-4
+                text-sm font-medium text-gray-700">
+                    <a class="slim-mobile" href="/index.html">Home</a>
+                    <a class="slim-mobile" href="/services.html">Services</a>
+                    <a class="slim-mobile" href="/about.html">About</a>
+                    <a class="slim-mobile" href="/products.html">Products</a>
+                    <a class="slim-mobile" href="/team.html">Team</a>
+                    <a class="slim-mobile" href="/reviews.html">Reviews</a>
+                    <a class="slim-mobile" href="/contact.html">Contact</a>
+
+                    <!-- Mobile Map -->
+                    <a href="https://www.google.com/maps" target="_blank" class="text-center py-2 rounded-full
+                border border-pink-300
+                text-pink-600 font-semibold">
+                        📍 View Location
+                    </a>
+
+                    <!-- Mobile Book -->
+                    <a href="/contact" class="text-center py-2 rounded-full
+                bg-gradient-to-r from-rose-500 to-pink-600
+                text-white font-semibold">
+                        Book Appointment
+                    </a>
+                </div>
+            </div>
+        </header>
+        <!--NEVBAR END HERE-->
+
+
+        <!-- Brand -->
+        <div id="brand" class="relative text-center px-6">
+
+            <!-- Logo -->
+            <div class="flex justify-center mb-6 md:mb-8">
+                <svg width="64" height="64" class="md:w-[82px] md:h-[82px] logo" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ec4899" />
+                            <stop offset="100%" stop-color="#f97316" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="48" fill="url(#grad)" />
+                    <text x="50%" y="58%" text-anchor="middle" fill="white" font-size="44" font-weight="700"
+                        font-family="Poppins, Arial">
+                        G
+                    </text>
+                </svg>
+            </div>
+
+            <!-- Brand + Smile -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+
+                <h1
+                    class="flex justify-center gap-1 sm:gap-2 text-2xl sm:text-3xl md:text-5xl font-semibold tracking-[0.35em] text-gray-900">
+                    <span class="letter">4</span>
+                    <span class="letter">0</span>
+                    <span class="letter">4</span>
+                    <span class="letter">&nbsp;</span>
+                    <span class="letter">E</span>
+                    <span class="letter">R</span>
+                    <span class="letter">R</span>
+                    <span class="letter">O</span>
+                    <span class="letter">R</span>
+
+                </h1>
+
+                <!-- Premium Smile -->
+                <svg class="smile w-12 h-12 sm:w-14 sm:h-14 md:w-[90px] md:h-[90px]" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="url(#grad)" stroke-width="2.4" stroke-linecap="round" />
+                    <circle cx="9" cy="10" r="1.3" fill="#ec4899" />
+                    <circle cx="15" cy="10" r="1.3" fill="#f97316" />
+                </svg>
+            </div>
+
+            <!-- Gradient Line -->
+            <div id="line"
+                class="h-[2px] w-0 bg-gradient-to-r from-pink-500 via-orange-400 to-pink-500 mx-auto mt-6 md:mt-8 rounded-full">
+            </div>
+        </div>
+    </div>
+    
+    <!--404 MAIN SECTION END HERE {AAK}-->
 
 </body>
 
