@@ -9,15 +9,15 @@
   <script src="/Glamaura.Base/base.js" defer></script>
   <link href="/Glamaura.Base/base.css" rel="stylesheet" />
   <script>
-(function () {
-  const nav = performance.getEntriesByType("navigation")[0];
-  const isReload = nav && nav.type === "reload";
+    (function () {
+      const nav = performance.getEntriesByType("navigation")[0];
+      const isReload = nav && nav.type === "reload";
 
-  if (sessionStorage.getItem("glamaura-visited") && !isReload) {
-    document.documentElement.classList.add("loader-skip");
-  }
-})();
-</script>
+      if (sessionStorage.getItem("glamaura-visited") && !isReload) {
+        document.documentElement.classList.add("loader-skip");
+      }
+    })();
+  </script>
 
 
 </head>
@@ -221,58 +221,220 @@
       </div>
     </div>
   </section>
-
   <!--HERO SECTION ENDING {AAK}-->
 
+  <!--AFTER REVIEW SECTION STARTING {AAK}-->
   <section class="bg-white">
-  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 py-16">
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-10 py-16">
 
-    <div class="rounded-[2.2rem] border border-pink-100/60 bg-white
+      <div class="rounded-[2.2rem] border border-pink-100/60 bg-white
                 shadow-[0_20px_60px_rgba(0,0,0,0.04)]
                 px-8 py-12">
 
-      <div class="grid md:grid-cols-3 gap-10 items-center">
+        <div class="grid md:grid-cols-3 gap-10 items-center">
 
-        <!-- BIG RATING -->
-        <div>
-          <h2 class="text-[64px] font-extrabold leading-none text-black">
-            4.9
-          </h2>
-          <p class="mt-2 text-sm text-gray-500">Average Rating</p>
-        </div>
-
-        <!-- STARS + TRUST -->
-        <div>
-          <div class="flex items-center gap-1 text-yellow-400">
-            ★ ★ ★ ★ ★
+          <!-- BIG RATING -->
+          <div>
+            <h2 class="text-[64px] font-extrabold leading-none text-black">
+              4.9
+            </h2>
+            <p class="mt-2 text-sm text-gray-500">Average Rating</p>
           </div>
 
-          <p class="mt-3 text-sm text-gray-600 max-w-sm">
-            Based on real client experiences.  
-            Our studio consistently delivers high-end results with genuine care.
-          </p>
+          <!-- STARS + TRUST -->
+          <div>
+            <div class="flex items-center gap-1 text-yellow-400">
+              ★ ★ ★ ★ ★
+            </div>
 
-          <p class="mt-4 text-[13px] text-gray-400">
-            Verified Google & Instagram Reviews
-          </p>
-        </div>
+            <p class="mt-3 text-sm text-gray-600 max-w-sm">
+              Based on real client experiences.
+              Our studio consistently delivers high-end results with genuine care.
+            </p>
 
-        <!-- TOTAL REVIEWS -->
-        <div class="text-right md:text-left">
-          <div class="text-2xl font-bold text-black">1,248+</div>
-          <p class="text-sm text-gray-500">Happy Clients Reviewed</p>
+            <p class="mt-4 text-[13px] text-gray-400">
+              Verified Google & Instagram Reviews
+            </p>
+          </div>
 
-          <div class="mt-4 inline-flex items-center gap-2 text-[12px]
+          <!-- TOTAL REVIEWS -->
+          <div class="text-right md:text-left">
+            <div class="text-2xl font-bold text-black">1,248+</div>
+            <p class="text-sm text-gray-500">Happy Clients Reviewed</p>
+
+            <div class="mt-4 inline-flex items-center gap-2 text-[12px]
                       px-4 py-2 rounded-full bg-pink-50 text-pink-600 font-semibold">
-            Trusted by premium clients
+              Trusted by premium clients
+            </div>
           </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!--AFTER REVIEW SECTION ENDING {AAK}-->
+
+  <!--REVIEW GRID  SECTION STARTING {AAK}-->
+  <section id="reviews" class="bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-24">
+
+      <!-- HEADER + ARROWS -->
+      <div class="flex items-end justify-between mb-12">
+        <div>
+          <span class="text-[11px] tracking-[0.35em] uppercase font-semibold text-pink-600"> Client Experiences </span>
+          <h2 class="mt-5 text-3xl sm:text-4xl xl:text-5xl font-extrabold text-black leading-tight"> Words that define
+            <span class="text-pink-600">our artistry</span> </h2>
+          <p class="mt-4 text-gray-500 text-[15px] max-w-xl"> Honest experiences shared by clients who value calm
+            luxury, detail, and trust. </p>
+        </div>
+
+        <div class="flex gap-3">
+          <button onclick="reviewPrev()" class="w-10 h-10 rounded-full border border-pink-200
+          flex items-center justify-center hover:bg-pink-50 transition">
+            ←
+          </button>
+          <button onclick="reviewNext()" class="w-10 h-10 rounded-full border border-pink-200
+          flex items-center justify-center hover:bg-pink-50 transition">
+            →
+          </button>
+        </div>
+      </div>
+
+      <!-- SLIDER -->
+      <div id="reviewSlider" class="flex gap-6 overflow-x-auto scroll-smooth
+      snap-x snap-mandatory
+      [-ms-overflow-style:none]
+      [scrollbar-width:none]">
+
+        <!-- REVIEW 1 -->
+        <div class="min-w-[320px] snap-start bg-white rounded-3xl p-8
+                  transition hover:-translate-y-1">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="GlamIMG/HOME-PAGE/review-section/reviewsection1.jpeg" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <p class="text-sm font-extrabold text-black">Ritika Mehra</p>
+              <p class="text-xs font-bold tracking-widest uppercase text-pink-500">
+                Bridal Client
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 mb-4">
+            <div class="text-yellow-400 text-sm">★★★★★</div>
+            <span class="text-sm font-extrabold text-black">4.9</span>
+          </div>
+
+          <p class="text-base font-medium text-gray-700 leading-relaxed">
+            “The makeup was subtle, elegant, and exactly my style.
+            GlamAura truly understands refined beauty.”
+          </p>
+        </div>
+
+        <!-- REVIEW 2 -->
+        <div class="min-w-[320px] snap-start bg-white rounded-3xl p-8
+                  transition hover:-translate-y-1">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="GlamIMG/HOME-PAGE/review-section/reviewsection2.jpeg" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <p class="text-sm font-extrabold text-black">Ayesha Khan</p>
+              <p class="text-xs font-bold tracking-widest uppercase text-pink-500">
+                Regular Client
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 mb-4">
+            <div class="text-yellow-400 text-sm">★★★★★</div>
+            <span class="text-sm font-extrabold text-black">4.8</span>
+          </div>
+
+          <p class="text-base font-medium text-gray-700 leading-relaxed">
+            “Calm ambience, professional team, and premium results.
+            I always feel confident after every visit.”
+          </p>
+        </div>
+
+        <!-- REVIEW 3 -->
+        <div class="min-w-[320px] snap-start bg-white rounded-3xl p-8
+                  transition hover:-translate-y-1">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="GlamIMG/HOME-PAGE/review-section/reviewsection3.jpeg" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <p class="text-sm font-extrabold text-black">Neelam Arora</p>
+              <p class="text-xs font-bold tracking-widest uppercase text-pink-500">
+                Party Makeup
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 mb-4">
+            <div class="text-yellow-400 text-sm">★★★★★</div>
+            <span class="text-sm font-extrabold text-black">4.7</span>
+          </div>
+
+          <p class="text-base font-medium text-gray-700 leading-relaxed">
+            “Everything felt effortless and well thought out.
+            This place truly delivers quiet luxury.”
+          </p>
+        </div>
+
+        <!-- REVIEW 4 -->
+        <div class="min-w-[320px] snap-start bg-white rounded-3xl p-8
+                  transition hover:-translate-y-1">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="GlamIMG/HOME-PAGE/review-section/reviewsection4.jpeg" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <p class="text-sm font-extrabold text-black">Pallavi Mehta</p>
+              <p class="text-xs font-bold tracking-widest uppercase text-pink-500">
+                Styling Client
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 mb-4">
+            <div class="text-yellow-400 text-sm">★★★★★</div>
+            <span class="text-sm font-extrabold text-black">4.6</span>
+          </div>
+
+          <p class="text-base font-medium text-gray-700 leading-relaxed">
+            “Minimal, modern, and premium.
+            Exactly what I look for in a beauty studio.”
+          </p>
+        </div>
+
+        <!-- REVIEW 5 -->
+        <div class="min-w-[320px] snap-start bg-white rounded-3xl p-8
+                  transition hover:-translate-y-1">
+          <div class="flex items-center gap-4 mb-5">
+            <img src="GlamIMG/HOME-PAGE/review-section/reviewsection5.jpeg" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <p class="text-sm font-extrabold text-black">Ishita Roy</p>
+              <p class="text-xs font-bold tracking-widest uppercase text-pink-500">
+                Skin Care Client
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 mb-4">
+            <div class="text-yellow-400 text-sm">★★★★★</div>
+            <span class="text-sm font-extrabold text-black">4.9</span>
+          </div>
+
+          <p class="text-base font-medium text-gray-700 leading-relaxed">
+            “Professional, hygienic, and beautifully curated.
+            I recommend GlamAura to everyone.”
+          </p>
         </div>
 
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
+  <!--REVIEW GRID  SECTION ENDING {AAK}-->
+
+
+
 
 
   <!--CONTACT SECTION STARTING{AAK}-->
