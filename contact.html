@@ -9,15 +9,15 @@
   <script src="/Glamaura.Base/base.js" defer></script>
   <link href="/Glamaura.Base/base.css" rel="stylesheet" />
   <script>
-(function () {
-  const nav = performance.getEntriesByType("navigation")[0];
-  const isReload = nav && nav.type === "reload";
+    (function () {
+      const nav = performance.getEntriesByType("navigation")[0];
+      const isReload = nav && nav.type === "reload";
 
-  if (sessionStorage.getItem("glamaura-visited") && !isReload) {
-    document.documentElement.classList.add("loader-skip");
-  }
-})();
-</script>
+      if (sessionStorage.getItem("glamaura-visited") && !isReload) {
+        document.documentElement.classList.add("loader-skip");
+      }
+    })();
+  </script>
 
 </head>
 
